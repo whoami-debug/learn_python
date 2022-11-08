@@ -1,12 +1,14 @@
+from collections import Counter
 f = open('chisla.txt')
 a = f.readlines()
 a = list(map(int, a))
-chisla = []
-count = 0
-for i in range(len(a) - 1):
-    if (a[i] + a[i + 1]) % 117 == 0:
-        count += 1
-        chisla.append(a[i])
-        chisla.append(a[i + 1])
-print('число пар кратных 117:', count)
-print('самые большие такие пары:',max(chisla) - 1, 'и', max(chisla))
+
+chisla = [i % 117 for i in a] #массив чисел %117
+
+chislaCount = Counter(chisla) #все возможные остатки
+
+total = 0
+# учитываем числа, которые сами делятся на 117 без остатка
+total += (chislaCount[0]*(chislaCount[0]-1)/2)
+
+print('число пар кратных 117:', total)
